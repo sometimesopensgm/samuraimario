@@ -1,0 +1,13 @@
+vspd = 0
+hspd = 0
+jspd = 4.6
+grav = 0.2
+right = 1
+maxspeed = 2
+maxvspd = 16
+acceleration = 0.2
+fric = 0.2
+grounded = false
+spr_idle = sprPlayerIdle
+spr_walk = sprPlayerWalk
+spr_jump = sprPlayerJump
