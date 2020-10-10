@@ -17,16 +17,24 @@ hspd -= fric*sign(hspd)
 //input, vertical
 var _jump = keyboard_check_pressed(vk_up) + keyboard_check_pressed(vk_space)
 var _jumprelease = keyboard_check_released(vk_up) + keyboard_check_released(vk_space)
-if _jump > 0 and grounded = true
+if _jump > 0
 {
-	vspd = -jspd
-	grounded = false
+	buffer_jump = 4;
+}
+if buffer_jump-- > 0 and (grounded = true || coyote_time > 0)
+{
+	vspd = -jspd;
+	grounded = false;
+	coyote_time = 0;
 }
 if _jumprelease and vspd < 0
 {
 	vspd /= 2	
 }
-vspd += grav
+if coyote_time-- < 0
+{
+	vspd += grav
+}
 
 //handle sprites
 if hspd != 0
@@ -38,9 +46,14 @@ else
 {
 	sprite_index = spr_idle	
 }
-if grounded = false
+if grounded = false 
 {
-	sprite_index = spr_jump	
+	if coyote_time <= 0
+	{
+		sprite_index = spr_jump	
+	}
+}else{
+	coyote_time = 3;		
 }
 
 //Collisions

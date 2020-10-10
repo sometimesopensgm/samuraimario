@@ -11,3 +11,5 @@ grounded = false
 spr_idle = sprPlayerIdle
 spr_walk = sprPlayerWalk
 spr_jump = sprPlayerJump
+buffer_jump = 0
+coyote_time = 0
