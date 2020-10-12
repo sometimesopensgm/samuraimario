@@ -44,20 +44,23 @@ if _downpress and place_meeting(x,y+1,colPlatform) and grounded = true
 }
 
 //handle sprites
-if hspd != 0
+if hspd != 0 and grounded = true
 {
 	right = sign(hspd)
 	sprite_index = spr_walk
+	image_speed = abs(hspd)/maxspeed
 }
 else
 {
-	sprite_index = spr_idle	
+	sprite_index = spr_idle
+	image_speed = 1
 }
 if grounded = false 
 {
 	if coyote_time <= 0
 	{
-		sprite_index = spr_jump	
+		sprite_index = spr_jump
+		image_speed = 1
 	}
 }else{
 	coyote_time = 3;		
