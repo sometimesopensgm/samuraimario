@@ -6,6 +6,7 @@
     {"id":{"name":"sprPlayerIdle","path":"sprites/sprPlayerIdle/sprPlayerIdle.yy",},"order":0,},
     {"id":{"name":"colPlatform","path":"objects/colPlatform/colPlatform.yy",},"order":2,},
     {"id":{"name":"sprPlayerWalk","path":"sprites/sprPlayerWalk/sprPlayerWalk.yy",},"order":1,},
+    {"id":{"name":"CameraCont","path":"objects/CameraCont/CameraCont.yy",},"order":4,},
     {"id":{"name":"tilesMain","path":"tilesets/tilesMain/tilesMain.yy",},"order":0,},
     {"id":{"name":"colSlope","path":"objects/colSlope/colSlope.yy",},"order":3,},
     {"id":{"name":"mskPlatform","path":"sprites/mskPlatform/mskPlatform.yy",},"order":2,},

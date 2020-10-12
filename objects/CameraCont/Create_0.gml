@@ -1,0 +1,10 @@
+game_width = 320
+game_height = 240
+view_camera[0] = camera_create_view(0, 0, game_width, game_height)
+shake = 0
+camx = 0
+camy = 0
+goalx = 0
+goaly = 0
+jerkx = 0
+jerky = 0
