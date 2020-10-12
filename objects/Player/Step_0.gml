@@ -3,7 +3,7 @@ if grounded = false and place_meeting(x,y+1,parSolid)
 {
 	grounded = true	
 }
-if !place_meeting(x,y+1,parSolid)
+if !place_meeting(x,y+1,parSolid) and !place_meeting(x,y+1,colPlatform)
 {
 	grounded = false	
 }
@@ -17,6 +17,7 @@ hspd -= fric*sign(hspd)
 //input, vertical
 var _jump = keyboard_check_pressed(vk_up) + keyboard_check_pressed(vk_space)
 var _jumprelease = keyboard_check_released(vk_up) + keyboard_check_released(vk_space)
+var _downpress = keyboard_check_pressed(vk_down)
 if _jump > 0
 {
 	buffer_jump = 4;
@@ -34,6 +35,12 @@ if _jumprelease and vspd < 0
 if coyote_time-- < 0
 {
 	vspd += grav
+}
+if _downpress and place_meeting(x,y+1,colPlatform) and grounded = true
+{
+	grounded = false
+	y += 2
+	coyote_time = 0
 }
 
 //handle sprites
@@ -57,16 +64,52 @@ if grounded = false
 }
 
 //Collisions
-if (place_meeting(x + hspd, y, parSolid)) {
-    while (!place_meeting(x + sign(hspd), y, parSolid))
-        x += sign(hspd);
-    hspd = 0;
+// Vertical
+repeat(abs(vspd)) 
+{
+    if (!place_meeting(x,y+sign(vspd),parSolid))
+        y += sign(vspd)
+    else 
+	{
+		//landing
+        vspd = 0
+        break;
+    }
 }
-x += hspd
-
-if (place_meeting(x, y + vspd, parSolid)) {
-    while (!place_meeting(x, y + sign(vspd), parSolid))
+// Check to make sure the player isn't jumping and not inside of a platform. 
+if  vspd > 0 && (place_meeting(x,y+vspd,colPlatform)) && !(collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom-1, colPlatform, false, false))
+{
+     while(!place_meeting(x,y+sign(vspd),colPlatform))
+     { 
         y += sign(vspd);
-    vspd = 0;
+     }
+	 grounded = true;
+     vspd = 0;
 }
-y += vspd
+    
+// Horizontal
+repeat(abs(hspd)) 
+{
+    
+    //Move up slope
+    if (place_meeting(x+sign(hspd),y,parSolid) and !place_meeting(x+sign(hspd),y-1,parSolid)) and grounded = true
+	{
+		while(place_meeting(x+sign(hspd),y,parSolid))
+		{
+			y -= 1
+		}
+	}
+    // Move down slope
+    if (!place_meeting(x+sign(hspd),y,parSolid) and !place_meeting(x+sign(hspd),y+1,parSolid) and place_meeting(x+sign(hspd),y+2,parSolid)) and grounded = true
+	{
+        y += 1
+	}
+    
+    if (!place_meeting(x+sign(hspd),y,parSolid))
+        x += sign(hspd)
+    else 
+	{
+        hspd = 0
+        break;
+    }
+}

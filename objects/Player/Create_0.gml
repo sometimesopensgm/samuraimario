@@ -1,6 +1,6 @@
 vspd = 0
 hspd = 0
-jspd = 4.6
+jspd = 5
 grav = 0.2
 right = 1
 maxspeed = 2
